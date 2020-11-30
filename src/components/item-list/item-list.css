@@ -1,0 +1,20 @@
+.item-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50vw;
+  height: 600px;
+  overflow-y: scroll;
+}
+
+.item, .no-data {
+  text-align: center;
+}
+
+.item {
+  background-color: #b4b4b4;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 400px;
+}
