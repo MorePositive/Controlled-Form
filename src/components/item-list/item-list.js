@@ -1,33 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './item-list.css';
 
-export default class ItemList extends Component {
+const ItemList = ({data}) => {
 
-  render() {
-    
-    const { data } = this.props;
-
-    return (
-      <div className="item-list">
-        { 
-          !data.length 
-             ?  <p className="no-data">There is no data yet</p>
-             :  data.map(item => {
-                return (
-                  <div  className="item" 
-                        key={item.email || item.id}>
-
-                    <p>{item.firstName || item.userId}</p>
-                    <p>{item.lastName || item.id}</p>
-                    <p>{item.phone || item.title}</p>
-                    <p>{item.email || item.body}</p>
-
-                  </div>
+  return (
+    <div className="item-list">
+      { 
+        !data.length 
+          ?  <p className="no-data">There is no data yet</p>
+          :  data.map(({firstName, lastName, phone, email, id, userId, title, body}) => {
+              return (
+                <ul  className="card" 
+                      key={email || id}>
+                  <li className="card-item">{firstName || userId}</li>
+                  <li className="card-item">{lastName || id}</li>
+                  <li className="card-item">{phone || title}</li>
+                  <li className="card-item">{email || body}</li>
+                </ul>
                 )
               })
-        }
-      </div>
-    )
-  }
+      }
+    </div>
+  )
 }
+
+export default ItemList;
