@@ -11,7 +11,8 @@ export default class Form extends Component {
     phone: "",
     email: "",
     emailError: "",
-    emailErrorMessage: ""
+    emailErrorMessage: "",
+    isValid: false
   }
 
   getInitialState = () => {
@@ -31,20 +32,25 @@ export default class Form extends Component {
     if (!email) {
       this.setState({
         emailError: "invalid",
-        emailErrorMessage: "Please enter email"
+        emailErrorMessage: "Please enter email",
+        isValid: false
       })
-      return false
-    }
-    return true
+    } else {
+      this.setState({
+        emailError: "",
+        emailErrorMessage: "",
+        isValid: true
+    })
+  }
   };
 
   //submiting form inputs
 
   onSubmit = (e) => {
-    const { firstName, lastName, phone, email } = this.state;
+    const { firstName, lastName, phone, email, isValid } = this.state;
     const { onItemAdded } = this.props;
     e.preventDefault();
-    const isValid = this.validate();
+    this.validate();
     if (isValid) {
       onItemAdded(firstName, lastName, phone, email);
       this.getInitialState();
@@ -68,7 +74,7 @@ export default class Form extends Component {
 
   render() {
     
-    const { firstName, lastName, phone, email, emailError, emailErrorMessage } = this.state;
+    const { firstName, lastName, phone, email, emailError, emailErrorMessage, isValid } = this.state;
     const { getPost } = this.props;
 
     return (
@@ -119,7 +125,7 @@ export default class Form extends Component {
                           name="email"
                           value={email}
                           onChange={this.handleChange}/>
-                  <div className={emailError}>{emailErrorMessage}</div>
+                  <div className={!isValid ? emailError : ""}>{!isValid ? emailErrorMessage : ""}</div>
                 </div>
                 <div className="buttons-group">
                   <button className='btn add-btn'
